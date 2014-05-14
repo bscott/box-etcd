@@ -15,10 +15,12 @@ script: |
   chmod +x etcd
   sudo mkdir -p /var/lib/etcd
   sudo mv etcd /usr/bin/etcd
-  sudo echo 'description "etcd service registry"' > /etc/init/etcd.conf
-  sudo echo 'start on started' >> /etc/init/etcd.conf
-  sudo echo 'stop on shutdown' >> /etc/init/etcd.conf
-  sudo echo 'exec /usr/bin/etcd -addr 0.0.0.0:4001 -data-dir /var/lib/etcd -name node0' >> /etc/init/etcd.conf
+  touch etcd.conf
+  echo 'description "etcd service registry"' >> etcd.conf
+  echo 'start on started' >> etcd.conf
+  echo 'stop on shutdown' >> etcd.conf
+  echo 'exec /usr/bin/etcd -addr 0.0.0.0:4001 -data-dir /var/lib/etcd -name node0' >> etcd.conf
+  sudo mv etcd.conf /etc/init/etcd.conf
 env:
   WERCKER_ETCD_ADDR: $$HOST$$:4001
   WERCKER_ETCD_VERSION: "0.3.0" 
