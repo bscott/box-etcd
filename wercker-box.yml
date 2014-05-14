@@ -1,0 +1,18 @@
+name: etcd
+version: 0.0.1
+inherits: wercker/ubuntu12.04-webessentials@0.0.3
+type: service
+platform: ubuntu@12.04
+description: wercker box for etcd
+keywords:
+  - etcd
+packages:
+  - etcd@0.3.0
+script: |
+  wget https://github.com/coreos/etcd/releases/download/v0.3.0/etcd-v0.3.0-linux-amd64.tar.gz
+  tar -xvf etcd-v0.3.0-linux-amd64.tar.gz
+  cd etcd-v0.3.0-linux-amd64
+  chmod +x etcd
+env:
+  WERCKER_ETCD_ADDR: $$HOST$$:4001
+  WERCKER_ETCD_VERSION: "0.3.0" 
